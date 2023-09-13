@@ -1,0 +1,16 @@
+.program ws2812
+.side_set 1
+
+.define public T1 2
+.define public T2 5
+.define public T3 3
+
+.wrap_target
+bitloop:
+    out x 1        side 0 [T3 - 1]  ; Drive low (320 ns)
+    jmp !x do_zero side 1 [T1 - 1]  ; Branch on the bit we shifted out previous delay. Drive high. (400 ns)
+do_one:
+    jmp  bitloop   side 1 [T2 - 1]  ; Continue driving high, for a one (long pulse) (400 ns)
+do_zero:
+    nop            side 0 [T2 - 1]  ; Or drive low, for a zero (short pulse) (480 ns)
+.wrap

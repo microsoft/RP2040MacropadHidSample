@@ -1,14 +1,46 @@
-# Project
+# Microsoft RP2040 LampArray Sample
+This project includes a sample for creating a LampArray deivce on the [Adafruit Macropad](https://www.adafruit.com/product/5128), which allows it to be controlled using Windows Lighting. This is done using the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf) and [TinyUSB](https://docs.tinyusb.org/en/latest/).
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+In this sample, there are two layers which are controlled by the rotary encoder. The default layer is a simple numpad layout, and the second layer is all blanks ready to be filed with any Macro command. The current design only allows one key combination to be sent at a time, and each combination is limited to two modifier keys (control, alt, shift, etc.) and 6 keys at a time, which is a limitation of the HID standard. 
 
-As the maintainer of this project, please make a few updates:
+This sample implements the [LampArray HID](https://www.usb.org/sites/default/files/hutrr84_-_lighting_and_illumination_page.pdf) standard, so when connected to any LampArry HID controller, this device should be able to be controlled. Additionally, a developer can control the RGB device effects from the [Windows LampArray API](https://learn.microsoft.com/en-us/uwp/api/windows.devices.lights.lamparray?view=winrt-22621). See the AutoRGB sample here: https://github.com/microsoft/Dynamic-Lighting-AutoRGB.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+This can be used as a template for other RP2040 devices which are connected to NeoPixels, or the Lighting folder can be used as a starting point for any project that uses TinyUSB.
+
+Note, this project was built off of the Hid Composite sample in the [Pico-Examples repository](https://github.com/raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite). Additionally, this project uses the PIO example in the Pico C/C++ SDK [documentation](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf?_gl=1*1sdq912*_ga*Mjk2MDU5ODkuMTY5NDQ1NjkzNg..*_ga_22FD70LWDS*MTY5NDQ1NjkzNi4xLjEuMTY5NDQ1NzAwNy4wLjAuMA..), section 3.2.2: A Real Example: WS2812 LEDs.
+
+## Macropad Setup instructions
+Note, that this project was built and tested using the latest Ubuntu WSL. Other distributions and the Windows version of the Pico SDK should work, but those options have not been verified.
+
+1. Install WSL onto Windows Machine
+2. `git clone` this project into WSL distribtion. This directory will now be the project directory.
+3. Install build dependencies.
+
+```
+$ sudo apt install build-essential
+```
+
+4. Follow Pico SDK setup instructions from https://github.com/raspberrypi/pico-sdk up through step 2c. (For step 2, this project was set up by cloning the SDK) 
+5. cd to the SDK directory and run `git submodule update --init`
+6. Update TinyUSB hid header to include LampArray. Navigate to [fork of TinyUSB](https://github.com/rsolorzanomsft/tinyusb/tree/hid-lighting/src/class/hid). Copy headers hid.h and hid_device.h to TinyUSB library in Pico SDK path, i.e. `<PicoSdkRoot>/lib/tinyusb/src/class/hid/`. _TODO: Once [PR](https://github.com/hathach/tinyusb/pull/2252) in TinyUSB goes in, remove this step_ 
+
+7. cd to `<ProjectDirectory>/src` and setup CMake build directory:
+```
+mkdir build
+cd build
+cmake -DPICO_BOARD=adafruit_macropad_rp2040 ..
+```
+Note, if PICO_SDK_PATH environment variable has not been set up in step 3, `-DPICO_SDK_PATH=` will need to be specified as well.
+
+8. Make your target from the project build directory.
+
+```
+make
+```
+
+9. On the Macropad, while holding down the rotary encoder button, press the reset button on the left side of the board, right under the OLED screen. Macropad device should show up as a removable device `RPI-RP2 (DriveLetter:)`
+10. Open an Explorer window to the build directory, and copy macropad.uf2 to the Macropad removeable device. Device should automatically remove itself and reboot.
+11. Open Settings > Personalization > Dynamic Lighting, and see the device come up. 
 
 ## Contributing
 
