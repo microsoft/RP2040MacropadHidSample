@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 #ifndef NEOPIXEL_H
 #define NEOPIXEL_H
 

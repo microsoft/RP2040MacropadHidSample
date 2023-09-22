@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 #include "Neopixel.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"

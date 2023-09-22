@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 #ifndef LAMP_ARRAY_H
 #define LAMP_ARRAY_H
 
