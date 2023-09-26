@@ -1,6 +1,8 @@
 # Microsoft RP2040 LampArray Sample
 This project includes a sample for creating a LampArray deivce on the [Adafruit Macropad](https://www.adafruit.com/product/5128), which allows it to be controlled using Windows Lighting. This is done using the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf) and [TinyUSB](https://docs.tinyusb.org/en/latest/).
 
+<img src="LightingDemo.gif" alt="Macropad RGB lights demo"/>
+
 In this sample, there are two layers which are controlled by the rotary encoder. The default layer is a simple numpad layout, and the second layer is all blanks ready to be filed with any Macro command. The current design only allows one key combination to be sent at a time, and each combination is limited to two modifier keys (control, alt, shift, etc.) and 6 keys at a time, which is a limitation of the HID standard. 
 
 This sample implements the [LampArray HID](https://www.usb.org/sites/default/files/hutrr84_-_lighting_and_illumination_page.pdf) standard, so when connected to any LampArry HID controller, this device should be able to be controlled. Additionally, a developer can control the RGB device effects from the [Windows LampArray API](https://learn.microsoft.com/en-us/uwp/api/windows.devices.lights.lamparray?view=winrt-22621). See the AutoRGB sample here: https://github.com/microsoft/Dynamic-Lighting-AutoRGB.
