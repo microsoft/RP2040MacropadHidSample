@@ -40,7 +40,7 @@ uint16_t GetLampAttributesReport(uint8_t* buffer) {
     };
 
     memcpy(buffer, &report, sizeof(LampAttributesResponseReport));
-    currentLampId = currentLampId + 1 >= LAMPARRAY_LAMP_COUNT ?  0 : currentLampId;
+    currentLampId = currentLampId + 1 >= LAMPARRAY_LAMP_COUNT ?  currentLampId : currentLampId + 1;
 
     return sizeof(LampAttributesResponseReport);
 }
