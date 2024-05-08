@@ -14,17 +14,25 @@ Note, this project was built off of the Hid Composite sample in the [Pico-Exampl
 ## Macropad Setup instructions
 Note, that this project was built and tested using the latest Ubuntu WSL. Other distributions and the Windows version of the Pico SDK should work, but those options have not been verified.
 
-1. Install WSL onto Windows Machine
+1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install) onto Windows Machine. 
 2. `git clone` this project into WSL distribtion. This directory will now be the project directory.
 3. Install build dependencies.
 
 ```
-$ sudo apt install build-essential
+sudo apt update
+sudo apt install build-essential
 ```
 
-4. Follow Pico SDK setup instructions from https://github.com/raspberrypi/pico-sdk up through step 2c. (For step 2, this project was set up by cloning the SDK) 
+4. Follow Pico SDK setup instructions from https://github.com/raspberrypi/pico-sdk up through step 2c. (For step 2, follow set up instructions by cloning the SDK) 
 5. cd to the SDK directory and run `git submodule update --init`
-6. Update TinyUSB hid header to include LampArray. Navigate to [fork of TinyUSB](https://github.com/rsolorzanomsft/tinyusb/tree/hid-lighting/src/class/hid). Copy headers hid.h and hid_device.h to TinyUSB library in Pico SDK path, i.e. `<PicoSdkRoot>/lib/tinyusb/src/class/hid/`. _TODO: Once [PR](https://github.com/hathach/tinyusb/pull/2252) in TinyUSB goes in, remove this step_ 
+6. Update TinyUSB in Pico SDK to latest version
+
+```
+cd <pico sdk dir>/lib/tinyusb
+git checkout master
+git pull
+```
+_Note, this may not be needed once updates to TinyUSB containing the LampArrayHID information reaches a release branch._
 
 7. cd to `<ProjectDirectory>/src` and setup CMake build directory:
 ```
@@ -41,7 +49,7 @@ make
 ```
 
 9. On the Macropad, while holding down the rotary encoder button, press the reset button on the left side of the board, right under the OLED screen. Macropad device should show up as a removable device `RPI-RP2 (DriveLetter:)`
-10. Open an Explorer window to the build directory, and copy macropad.uf2 to the Macropad removeable device. Device should automatically remove itself and reboot.
+10. Open an Explorer window to the build directory, and copy `macropad.uf2` under the build directory to the Macropad removeable device. Device should automatically remove itself and reboot.
 11. Open Settings > Personalization > Dynamic Lighting, and see the device come up. 
 
 ## Contributing
