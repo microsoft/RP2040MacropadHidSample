@@ -40,7 +40,6 @@ cd ./RP2040MacropadHidSample/src/
 rm ./build -r
 mkdir build
 cd build
-echo -e $PICO_SDK_PATH
 cmake -DPICO_BOARD=adafruit_macropad_rp2040 ..
 
 echo -e "\n\tStep 8.\n"
