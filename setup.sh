@@ -21,7 +21,6 @@ apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-e
 git clone https://github.com/raspberrypi/pico-sdk.git
 rm ./RP2040MacropadHidSample/src/pico_sdk_import.cmake
 cp ./pico-sdk/external/pico_sdk_import.cmake ./RP2040MacropadHidSample/src/pico_sdk_import.cmake
-echo -e "path"
 export PICO_SDK_PATH=$PWD/pico-sdk
 
 echo -e "\n\tStep 5.\n"
