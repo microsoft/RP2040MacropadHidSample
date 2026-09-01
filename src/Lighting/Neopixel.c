@@ -95,10 +95,15 @@ void NeopixelSetColorRange(uint16_t lampIdStart, uint16_t lampIdEnd, LampColor l
 }
 
 void NeopixelSendColors() {
+    uint32_t grb_value;
     for (int i = 0; i < NEOPIXEL_COUNT; i++) {
-        uint32_t grb_value = (Controller.pixels[i].green << 24) | 
+        if (Controller.pixels[i].intensity == 0) {
+            grb_value = 0;
+        } else {
+            grb_value = (Controller.pixels[i].green << 24) |
                              (Controller.pixels[i].red << 16)   | 
                              (Controller.pixels[i].blue << 8);
+        }
 
         pio_sm_put_blocking(Controller.pio, Controller.sm, grb_value);
     }

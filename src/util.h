@@ -79,7 +79,7 @@ inline uint16_t LampIdToKey(uint16_t lampId) {
 
 // Misc.
 #define RED_LED                     13
-#define AUTONOMOUS_LIGHTING_COLOR   (LampColor){0, 255, 0}
+#define AUTONOMOUS_LIGHTING_COLOR   (LampColor){0, 255, 0, 1}
 #define AUTONOMOUS_LIGHTING_EFFECT  BLINK
 
 #endif
